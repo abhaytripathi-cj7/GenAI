@@ -1,0 +1,37 @@
+Week 6 - Golden Set + Baseline Run v0.1 - VERIFIED CHECKS
+============================================================
+Verified by Muse before delivery. The live llama3.2 scores can only
+come from YOUR laptop (Ollama + the 2 GB model live there), so no
+model scores are claimed here - what is verified is everything else:
+
+--- 1. python test_week6.py (offline, no Ollama needed) ----------------
+Ran 8 tests in 0.001s - OK
+  Golden set: 30 questions, IDs Q001-Q030 in order, every item has
+  question + expected_answer + keywords (>=3) + http source.
+  Scoring: 100% full match, 50% partial match, 0% no match,
+  case-insensitive, empty keywords = 0.
+
+--- 2. Full pipeline run of main.py (stub server test) ------------------
+main.py was run end-to-end against a local stub that answers like
+Ollama's /api/generate (returning each expected answer). Result:
+  Total Questions: 30   Successful Responses: 30   Passed: 30
+  Average Keyword Coverage: 100.0 %
+  baseline_results.csv created: header + 30 rows, Release v0.1
+  "BASELINE RUN COMPLETED! Release v0.1 created successfully."
+This proves the request -> score -> CSV -> summary pipeline works.
+It is NOT a llama3.2 result - your real scores will be lower and
+different; that real run is the deliverable of this lab.
+
+--- 3. Error path (Ollama not running) ----------------------------------
+With no server on localhost:11434, main.py does not crash: all 30
+rows are recorded as ERROR, summary shows Failed Requests: 30, and
+the CSV is still saved. If you see that on your laptop, Ollama is
+not running - start it and re-run.
+
+--- Your live run (on your laptop) --------------------------------------
+ollama --version
+ollama pull llama3.2
+python main.py        (30 questions, temperature 0 - allow several
+                       minutes; llama3.2 answers one by one)
+Output file created on your machine: baseline_results.csv
+Label it: Release v0.1 (guide Step 7 / final activity).

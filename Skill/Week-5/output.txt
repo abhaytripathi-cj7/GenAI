@@ -1,0 +1,47 @@
+Week 5 - Token Economics - VERIFIED RUN
+========================================
+Verified by Muse before delivery (Python, python-dotenv installed).
+Your run on your laptop should match these numbers exactly, because
+this lab is pure calculation - no LLM API is called.
+
+--- python test_budget.py -v -------------------------------------------
+test_capacity_passes ... ok
+test_cost_estimate ... ok
+test_monthly_budget_fails ... ok
+test_rpm_limit_fails ... ok
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+OK
+
+--- python budget.py (guide .env values) -------------------------------
+TOKEN ECONOMICS REPORT
+-----------------------------------
+Input tokens/day:  2,400,000
+Output tokens/day: 600,000
+Total tokens/day:  3,000,000
+Estimated daily cost:   $1.4400
+Estimated monthly cost: $43.20
+Peak RPM with margin: 36.0
+Peak TPM with margin: 54000
+
+CHECKS
+RPM capacity: PASS
+TPM capacity: PASS
+Daily budget: PASS
+Monthly budget: REVIEW
+
+Recommendation: REVISE assumptions, limits, or design before build.
+
+--- Guide check ---------------------------------------------------------
+Every figure in the guide's Section 6 table matches exactly:
+input 2,400,000 / output 600,000 / total 3,000,000 / daily $1.44 /
+monthly $43.20 / peak RPM 36 / peak TPM 54,000.
+
+ONE difference from the guide's interpretation paragraph (Section 6):
+the guide says the example is "within the configured daily and monthly
+cost budgets", but its own budget.py applies the 20% safety margin to
+the budget checks too - $43.20 x 1.2 = $51.84, which is over the $50
+monthly budget. So Monthly budget = REVIEW and the recommendation is
+REVISE. The code is kept exactly as the guide wrote it (the 4 guide
+tests all pass); this is a guide inconsistency, not a code bug.
+See LAB_REPORT.md for the full what-if analysis (guide Section 8).
